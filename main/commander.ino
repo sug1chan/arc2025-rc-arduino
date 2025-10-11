@@ -1,5 +1,6 @@
 //#include "commander.h"
 #include "operate.h"
+#include <Servo.h>
 /********************************************/
 /*		DEFINE_ARRAY&STRUCT_START			        */
 /********************************************/
@@ -61,7 +62,12 @@ void init_pinMode(void) {
     pinMode(L_CATEPILLAR_REV, OUTPUT);
     pinMode(R_CATEPILLAR,     OUTPUT);
     pinMode(R_CATEPILLAR_REV, OUTPUT);
+	pinMode(SW_PIN,           INPUT_PULLUP);
     Serial.println("init pinMode: Finish");
+	Serial.println("myservo_attach: Start");
+	myservo..attach(SERVO_PIN);
+	myservo.write(0);
+	Serial.println("myservo_attach: Finish");
 }
 
 void init_robot_operate(void) {
@@ -161,6 +167,27 @@ int32_t cmd_move_arm(int32_t opt) {
 	return 0;
 }
 
+/*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*/
+/*_		サーボモータ動作用関数					           _*/
+/*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*/
+int32_t cmd_ctrl_servo_motor(int32_t opt){
+	// control heater
+	DEBUG_FUNCNAME("contrl_servo_motor");
+
+	if (opt == SERVO_ON) {
+		Serial.println("    SERVO          : START");
+		myservo.write(0);
+		delaay(1000);
+		myservo.write(60);
+		delaay(1000);
+		myservo.write(0);
+		Serial.println("    SERVO          : END");
+	} else {
+		Serial.println("    SERVO          : OFF");
+		myservo.write(0);
+	}
+	return 0;
+}
 
 /*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*/
 /*_		緊急停止用関数						             _*/
