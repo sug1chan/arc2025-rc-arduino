@@ -8,6 +8,8 @@ static int32_t pwm_right_normal, pwm_right_reverse, pwm_left_normal, pwm_left_re
 static int32_t is_slow_mode = 0;
 static int32_t old_opt = 0;
 
+Servo myservo;  //サーボオブジェクトの生成
+
 typedef struct
 {
 	int32_t lrMove;													/*	キャタピラのパワー(固定値)	*/
@@ -62,12 +64,12 @@ void init_pinMode(void) {
     pinMode(L_CATEPILLAR_REV, OUTPUT);
     pinMode(R_CATEPILLAR,     OUTPUT);
     pinMode(R_CATEPILLAR_REV, OUTPUT);
-	pinMode(SW_PIN,           INPUT_PULLUP);
+	  pinMode(SERVO_PIN ,       INPUT_PULLUP);
     Serial.println("init pinMode: Finish");
-	Serial.println("myservo_attach: Start");
-	myservo..attach(SERVO_PIN);
-	myservo.write(0);
-	Serial.println("myservo_attach: Finish");
+	  Serial.println("myservo_attach: Start");
+	  myservo.attach(SERVO_PIN);
+	  myservo.write(0);
+	  Serial.println("myservo_attach: Finish");
 }
 
 void init_robot_operate(void) {
@@ -177,9 +179,9 @@ int32_t cmd_ctrl_servo_motor(int32_t opt){
 	if (opt == SERVO_ON) {
 		Serial.println("    SERVO          : START");
 		myservo.write(0);
-		delaay(1000);
+		delay(1000);
 		myservo.write(60);
-		delaay(1000);
+		delay(1000);
 		myservo.write(0);
 		Serial.println("    SERVO          : END");
 	} else {

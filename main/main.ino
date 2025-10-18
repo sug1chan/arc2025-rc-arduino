@@ -10,10 +10,10 @@ const int32_t debug = 1;
 byte mac[] = {
   0x90, 0xA2, 0xDA, 0x10, 0xE8, 0x7F
 };
-IPAddress ip(192, 168, 5, 10);
+IPAddress ip(192, 168, 250, 2);
 IPAddress subnet(255, 255, 255, 0);
 IPAddress gateway(192, 168, 5, 10);
-EthernetServer socketServer(55555);
+EthernetServer socketServer(8000);
 
 uint8_t buf[MAX_BUF_LEN];
 int32_t ibuf = 0;
@@ -62,7 +62,6 @@ void loop() {
       }
     }
 
-    variable_init();
     client.stop();
     Serial.println(SEPARATE);
     Serial.println("Disconnected.");
@@ -91,12 +90,4 @@ void show_data(String name, int32_t no, int32_t opt) {
     Serial.print("opt = ");
     to_bin(opt);
     Serial.println("");
-}
-
-void variable_init(void){
-  cmd_func_list cmd_list;
-  for (int32_t i = 1; CMD_MAX > i; i ++) {
-    cmd_list = recv_cmd_list[i];
-    cmd_list.cmd_func(variable_init_val[i]);
-  }
 }

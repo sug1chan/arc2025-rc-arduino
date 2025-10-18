@@ -11,6 +11,7 @@
 #define L_CATEPILLAR_REV 16   // degial pin 09
 #define R_CATEPILLAR     17   // degial pin 06
 #define R_CATEPILLAR_REV 18   // degial pin 07
+#define SERVO_PIN        10   // degial pin 07
 
 //define output catapiller
 #define	LEFT_NORMAL		(8U)			/*	左車輪前進				*/

@@ -17,13 +17,15 @@ typedef struct{
 #define HEATER_MODE     3
 #define ARM_MOVE        4
 #define EMERGENCY_STOP  5
-#define CMD_MAX         6
+#define SERVO_ON        6
+#define CMD_MAX         7
 
 #define INIT_VAL_CMD_NONE         0
 #define INIT_CAT_MOVE             15
 #define INIT_CAT_SLOW_MODE        0
 #define INIT_HEATER_MODE          0
 #define INIT_ARM_MOVE             0
+#define INIT_SERVO_ON             0
 #define INIT_EMERGENCY_STOP       0
 
 
@@ -33,6 +35,7 @@ int32_t cmd_move_catepillar(int32_t);
 int32_t cmd_change_slowmode(int32_t);
 int32_t cmd_turn_onoff_heater(int32_t);
 int32_t cmd_move_arm(int32_t);
+int32_t cmd_ctrl_servo_motor(int32_t);
 int32_t cmd_emergency_stop(int32_t);
 
 
@@ -44,6 +47,7 @@ const struct cmd_func_list recv_cmd_list[CMD_MAX] = {
     {"CAT_SLOW_MODE",  cmd_change_slowmode},
     {"HEATER_MODE",    cmd_turn_onoff_heater},
     {"ARM_MOVE",       cmd_move_arm},
+    {"SERVO_ON",       cmd_ctrl_servo_motor},
     {"EMERGENCY_STOP", cmd_emergency_stop}
 };
 
