@@ -101,6 +101,11 @@ typedef char opr;
 #define CTPL_LTRN     (OPR_L_REVERSE | OPR_R_NORMAL)    // Left  Turn
 #define CTPL_RTRN     (OPR_L_NORMAL  | OPR_R_REVERSE)   // Right Turn
 
+// operate CATEPILLAR
+
+#define SERVO_OFF     (0U)
+#define SERVO_ON      (1U)
+
 // setup Pin mode
 void init_pinMode(void);
 void pwm_normal(void);
