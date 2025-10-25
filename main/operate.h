@@ -3,15 +3,15 @@
 // define pin
 
 #define HEATER            5   // degial pin 05
-#define ROBOT_ARM_UP      2   // degial pin 10
-#define ROBOT_ARM_DOWN    3   // degial pin 11
-#define ROBOT_HAND_OPEN  25   // degial pin 12
-#define ROBOT_HAND_CLOSE 26   // degial pin 13
-#define L_CATEPILLAR     15   // degial pin 08
-#define L_CATEPILLAR_REV 16   // degial pin 09
-#define R_CATEPILLAR     17   // degial pin 06
-#define R_CATEPILLAR_REV 18   // degial pin 07
-#define SERVO_PIN        10   // degial pin 07
+#define ROBOT_ARM_UP      2   // degial pin 02
+#define ROBOT_ARM_DOWN    3   // degial pin 03
+#define ROBOT_HAND_OPEN  25   // degial pin 25
+#define ROBOT_HAND_CLOSE 26   // degial pin 26
+#define L_CATEPILLAR     15   // degial pin 15
+#define L_CATEPILLAR_REV 16   // degial pin 16
+#define R_CATEPILLAR     17   // degial pin 17
+#define R_CATEPILLAR_REV 18   // degial pin 18
+#define SERVO_PIN         1   // degial pin 01
 
 //define output catapiller
 #define	LEFT_NORMAL		(8U)			/*	左車輪前進				*/
