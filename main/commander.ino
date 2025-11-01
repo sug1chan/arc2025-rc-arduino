@@ -68,7 +68,7 @@ void init_pinMode(void) {
     Serial.println("init pinMode: Finish");
 	  Serial.println("myservo_attach: Start");
 	  myservo.attach(SERVO_PIN);
-	  myservo.write(0);
+	  myservo.write(60);
 	  Serial.println("myservo_attach: Finish");
 }
 
@@ -176,17 +176,29 @@ int32_t cmd_ctrl_servo_motor(int32_t opt){
 	// control heater
 	DEBUG_FUNCNAME("contrl_servo_motor");
 
-	if (opt == SERVO_ON) {
+	int rad;
+
+	if (opt == CTRL_SERVO_ON) {
 		Serial.println("    SERVO          : START");
-		myservo.write(0);
-		delay(1000);
+
 		myservo.write(60);
+		rad = myservo.read();
+		Serial.println("    SERVO          : "+rad);
 		delay(1000);
+
 		myservo.write(0);
+		rad = myservo.read();
+		Serial.println("    SERVO          : "+rad);
+		delay(1000);
+
+		myservo.write(60);
+		rad = myservo.read();
+		Serial.println("    SERVO          : "+rad);
+
 		Serial.println("    SERVO          : END");
 	} else {
 		Serial.println("    SERVO          : OFF");
-		myservo.write(0);
+		myservo.write(60);
 	}
 	return 0;
 }
@@ -199,6 +211,7 @@ int32_t cmd_emergency_stop(int32_t opt) {
 	cmd_change_slowmode(CAT_MODE_NORMAL);
 	cmd_turn_onoff_heater(HEATER_OFF);
 	cmd_move_arm(ARM_STOP);
+	cmd_ctrl_servo_motor(CTRL_SERVO_OFF);
 	return 0;
 }
 

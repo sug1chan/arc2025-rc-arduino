@@ -103,8 +103,9 @@ typedef char opr;
 
 // operate CATEPILLAR
 
-#define SERVO_OFF     (0U)
-#define SERVO_ON      (1U)
+#define CTRL_SERVO_ON      (0U)
+#define CTRL_SERVO_OFF     (1U)
+
 
 // setup Pin mode
 void init_pinMode(void);
