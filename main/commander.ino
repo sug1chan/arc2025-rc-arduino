@@ -1,11 +1,14 @@
 //#include "commander.h"
 #include "operate.h"
+#include <Servo.h>
 /********************************************/
 /*		DEFINE_ARRAY&STRUCT_START			        */
 /********************************************/
 static int32_t pwm_right_normal, pwm_right_reverse, pwm_left_normal, pwm_left_reverse;
 static int32_t is_slow_mode = 0;
 static int32_t old_opt = 0;
+
+Servo myservo;  //サーボオブジェクトの生成
 
 typedef struct
 {
@@ -61,6 +64,8 @@ void init_pinMode(void) {
     pinMode(L_CATEPILLAR_REV, OUTPUT);
     pinMode(R_CATEPILLAR,     OUTPUT);
     pinMode(R_CATEPILLAR_REV, OUTPUT);
+    myservo.attach(SERVO_PIN);
+    myservo.write(60);
     Serial.println("init pinMode: Finish");
 }
 
@@ -161,6 +166,65 @@ int32_t cmd_move_arm(int32_t opt) {
 	return 0;
 }
 
+/*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*/
+/*_		サーボモータ動作用関数					           _*/
+/*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*/
+int32_t cmd_ctrl_servo_motor(int32_t opt){
+	// control heater
+	DEBUG_FUNCNAME("contrl_servo_motor");
+
+	int rad;
+
+	if (opt == CTRL_SERVO_ON) {
+		Serial.println("    SERVO          : START");
+    
+		myservo.write(60);
+		rad = myservo.read();
+		Serial.println(rad);
+
+		myservo.write(0);
+		delay(200);
+		rad = myservo.read();
+		Serial.println(rad);
+
+		myservo.write(60);
+		delay(200);
+		rad = myservo.read();
+		Serial.println(rad);
+		Serial.println("    SERVO          : END");
+	} else if(opt == CTRL_SERVO_LOCK_OFF){
+		Serial.println("    SERVO          : DOUBLE_CLICK_START");
+
+		myservo.write(60);
+		rad = myservo.read();
+		Serial.println(rad);
+
+		myservo.write(0);
+		delay(100);
+		rad = myservo.read();
+		Serial.println(rad);
+
+		myservo.write(50);
+		delay(100);
+		rad = myservo.read();
+		Serial.println(rad);
+    
+		myservo.write(0);
+		delay(100);
+		rad = myservo.read();
+		Serial.println(rad);
+
+		myservo.write(60);
+		delay(100);
+		rad = myservo.read();
+		Serial.println(rad);
+		Serial.println("    SERVO          : DOUBLE_CLICK_END");
+	}else {
+		Serial.println("    SERVO          : OFF");
+		myservo.write(60);
+	}
+	return 0;
+}
 
 /*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*_*/
 /*_		緊急停止用関数						             _*/
@@ -170,6 +234,7 @@ int32_t cmd_emergency_stop(int32_t opt) {
 	cmd_change_slowmode(CAT_MODE_NORMAL);
 	cmd_turn_onoff_heater(HEATER_OFF);
 	cmd_move_arm(ARM_STOP);
+	cmd_ctrl_servo_motor(CTRL_SERVO_OFF);
 	return 0;
 }
 

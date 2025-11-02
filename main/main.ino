@@ -10,10 +10,10 @@ const int32_t debug = 1;
 byte mac[] = {
   0x90, 0xA2, 0xDA, 0x10, 0xE8, 0x7F
 };
-IPAddress ip(192, 168, 5, 10);
+IPAddress ip(192, 168, 250, 2);
 IPAddress subnet(255, 255, 255, 0);
 IPAddress gateway(192, 168, 5, 10);
-EthernetServer socketServer(55555);
+EthernetServer socketServer(8000);
 
 uint8_t buf[MAX_BUF_LEN];
 int32_t ibuf = 0;
@@ -26,7 +26,7 @@ void setup() {
   socketServer.begin();
   Serial.begin(9600);
   Serial.println(SEPARATE);
-  Serial.println("init ARC2024!");
+  Serial.println("init ARC2025!");
   Serial.println(SEPARATE);
 }
 
@@ -39,6 +39,7 @@ void loop() {
     Serial.println("connected.");
     Serial.println(SEPARATE);
     buf_init();
+    init_pinMode();
 
     while (client.connected()) {
       if(client.available()) {
