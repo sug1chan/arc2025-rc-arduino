@@ -11,7 +11,7 @@
 #define L_CATEPILLAR_REV 16   // degial pin 16
 #define R_CATEPILLAR     17   // degial pin 17
 #define R_CATEPILLAR_REV 18   // degial pin 18
-#define SERVO_PIN         1   // degial pin 01
+#define SERVO_PIN        44   // degial pin 44
 
 //define output catapiller
 #define	LEFT_NORMAL		(8U)			/*	左車輪前進				*/
@@ -103,8 +103,9 @@ typedef char opr;
 
 // operate CATEPILLAR
 
-#define CTRL_SERVO_ON      (0U)
-#define CTRL_SERVO_OFF     (1U)
+#define CTRL_SERVO_ON       (0U)
+#define CTRL_SERVO_LOCK_OFF (1U)
+#define CTRL_SERVO_OFF      (2U)
 
 
 // setup Pin mode

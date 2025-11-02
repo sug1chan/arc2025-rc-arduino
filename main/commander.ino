@@ -64,12 +64,9 @@ void init_pinMode(void) {
     pinMode(L_CATEPILLAR_REV, OUTPUT);
     pinMode(R_CATEPILLAR,     OUTPUT);
     pinMode(R_CATEPILLAR_REV, OUTPUT);
-	  pinMode(SERVO_PIN ,       INPUT_PULLUP);
+    myservo.attach(SERVO_PIN);
+    myservo.write(60);
     Serial.println("init pinMode: Finish");
-	  Serial.println("myservo_attach: Start");
-	  myservo.attach(SERVO_PIN);
-	  myservo.write(60);
-	  Serial.println("myservo_attach: Finish");
 }
 
 void init_robot_operate(void) {
@@ -180,23 +177,49 @@ int32_t cmd_ctrl_servo_motor(int32_t opt){
 
 	if (opt == CTRL_SERVO_ON) {
 		Serial.println("    SERVO          : START");
-
+    
 		myservo.write(60);
 		rad = myservo.read();
-		Serial.println("    SERVO          : "+rad);
-		delay(1000);
+		Serial.println(rad);
 
 		myservo.write(0);
+		delay(200);
 		rad = myservo.read();
-		Serial.println("    SERVO          : "+rad);
-		delay(1000);
+		Serial.println(rad);
+
+		myservo.write(60);
+		delay(200);
+		rad = myservo.read();
+		Serial.println(rad);
+		Serial.println("    SERVO          : END");
+	} else if(opt == CTRL_SERVO_LOCK_OFF){
+		Serial.println("    SERVO          : DOUBLE_CLICK_START");
 
 		myservo.write(60);
 		rad = myservo.read();
-		Serial.println("    SERVO          : "+rad);
+		Serial.println(rad);
 
-		Serial.println("    SERVO          : END");
-	} else {
+		myservo.write(0);
+		delay(100);
+		rad = myservo.read();
+		Serial.println(rad);
+
+		myservo.write(50);
+		delay(100);
+		rad = myservo.read();
+		Serial.println(rad);
+    
+		myservo.write(0);
+		delay(100);
+		rad = myservo.read();
+		Serial.println(rad);
+
+		myservo.write(60);
+		delay(100);
+		rad = myservo.read();
+		Serial.println(rad);
+		Serial.println("    SERVO          : DOUBLE_CLICK_END");
+	}else {
 		Serial.println("    SERVO          : OFF");
 		myservo.write(60);
 	}

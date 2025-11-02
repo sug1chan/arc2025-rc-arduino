@@ -26,7 +26,7 @@ void setup() {
   socketServer.begin();
   Serial.begin(9600);
   Serial.println(SEPARATE);
-  Serial.println("init ARC2024!");
+  Serial.println("init ARC2025!");
   Serial.println(SEPARATE);
 }
 
@@ -39,6 +39,7 @@ void loop() {
     Serial.println("connected.");
     Serial.println(SEPARATE);
     buf_init();
+    init_pinMode();
 
     while (client.connected()) {
       if(client.available()) {
